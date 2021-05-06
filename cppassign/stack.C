@@ -1,0 +1,80 @@
+#include<iostream>
+using namespace std;
+class stac
+{
+	int *a;
+	int top;
+	int size;
+public:
+	void push(int);
+	int pop();
+	int peek();
+	//bool isfull();
+	//bool isempty();
+	stac()
+	{
+		a=NULL;
+		top=-1;
+		size=0;
+	}
+	stac(int n)
+	{
+		a=new int [n];
+		top=-1;
+		size=n;
+	}
+	void display()
+	{
+		int i;
+		cout<<"elements are\n";	
+		for(i=top;i>=0;i--)
+			cout<<a[i]<<endl;
+	}
+};
+/*bool stac::isempty()
+{
+	return(top==-1);
+}
+bool stac::isfull()
+{
+	return(top>=size);
+}*/
+void stac::push(int ele)
+{
+	if(top>=size)//if(!(isfull()))
+		cout<<"stack is full\n";
+	else
+	{
+	top++;
+	a[top]=ele;
+	cout<<a[top];
+	//return;
+	}
+}
+int stac::pop()
+{
+	int x=-99;
+	if(top==-1)//if(!(isempty()))
+	cout<<"stack is empty";
+	else
+	{
+	x=a[top];
+	top--;
+	cout<<"pop element is "<<x<<endl;;	
+	}
+	return x;
+}
+int main()
+{
+	stac s1,s(4);
+	s.push(2);
+	s.push(3);
+	s.push(4);
+	s.push(5);
+	s.push(6);
+	s.push(7);
+	s.pop();
+	s.pop();
+	s.display();
+return 0;
+}	 

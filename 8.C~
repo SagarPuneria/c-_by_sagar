@@ -1,0 +1,149 @@
+#include<iostream>
+using namespace std;
+class complex1
+{
+	float r;
+	float i;
+	public:
+	complex1()
+	{
+		i=r=20;
+	}
+	complex1(int x,int y)
+	{
+		r=x;
+		i=y;
+	}
+	complex1 operator()(int x,int y)
+	{
+		r=x;i=y;
+		return(*this);
+	}
+	complex1 operator()(int x)
+	{
+		r=i=x;
+		return(*this);
+	}
+	complex1(int x)
+	{
+		r=i=x;
+	}
+	void print_complex()
+	{
+		cout<<"real="<<r<<" img="<<i<<endl;
+	}
+	complex1 operator++()//++c1
+	{
+		++r;
+		++i;
+		return(*this);
+	}
+	complex1 operator++(int x)//c1++
+	{
+		complex1 temp;
+		temp.r=r++;
+		temp.i=i++;
+		return temp;
+	}
+	complex1 operator+(complex1 c)//c4=c1+c2
+	{
+		/*complex1 temp;
+		temp.r=r+c.r;
+		temp.i=i+c.i;	
+		return (temp);*/
+		this->r+=c.r;
+		this->i+=c.i;
+		return(*this);
+	}
+	complex1 operator+=(complex1 c)//c1+=c2
+	{
+		this->r+=c.r;//r+=c.r;
+		this->i+=c.i;//i+=c.i;
+		return(*this);
+	}
+	complex1 operator-()//c4=-c1
+	{
+		/*complex1 temp;
+		temp.r=-r;
+		temp.i=-i;
+		return temp;*/
+		this->r=-r;
+		this->i=-i;
+		return(*this);
+	}
+	complex1 operator+(int x)//c5=c1+5
+	{
+		complex1 temp;
+		temp.r=r+x;
+		temp.i=i+x;
+		return temp;
+	}
+	//friend complex1 operator-(complex1,complex1);
+	complex1 operator-(complex1);//c5=c1-c2
+	friend complex1 operator+(int,complex1);//c4=5+c1
+	friend ostream &operator<<(ostream &,complex1);//cout<<c1<<c2<<c3
+	friend istream &operator>>(istream &,complex1 &);//cin>>c1>>c2
+};
+complex1 complex1::operator-(complex1 x)
+{
+	complex1 temp;
+	temp.r=r-x.r;
+	temp.i=i-x.i;
+	return temp;
+}
+complex1 operator+(int x,complex1 c)
+{
+	complex1 temp;
+	temp.r=c.r+x;
+	temp.i=c.i+x;
+	return temp;
+}
+ostream &operator<<(ostream &cout,complex1 c)
+{
+	cout<<"real value ="<<c.r<<endl;
+	cout<<"img value ="<<c.i<<endl;
+	return cout;
+}
+istream &operator>>(istream &cin,complex1 &c)
+{
+	cin>>c.r>>c.i;
+	return cin;
+}
+/*complex1 operator-(complex1 x,complex1 y)
+{
+	complex1 temp;
+	temp.r=x.r-y.r;
+	temp.i=x.i-y.i;
+	return temp;
+}*/
+int main()
+{
+	complex1 c1(2,3),c2(3),c3(7,8),c4,c5;//,c4(c3),c5;
+	c1.print_complex();
+	c2.print_complex();
+	c3.print_complex();
+	c4.print_complex();
+	c5.print_complex();
+	++c1;
+	c1.print_complex();
+	c1++;
+	c1.print_complex();
+	c5=c1-c2;
+	c5.print_complex();
+	c4=-c1;
+	c4.print_complex();
+	c4=c1+c2;
+	c4.print_complex();
+	c1+=c2;//c1=c1+c2
+	c1.print_complex();
+	c5=c1+5;
+	c5.print_complex();
+	c4=5+c1;
+	c4.print_complex();		
+	cout<<c4<<c5<<c1;
+	cin>>c1>>c2;
+	c1.print_complex();
+	c2.print_complex();
+	c3=c1(3,8)+c2(5);
+	c3.print_complex();
+}	
